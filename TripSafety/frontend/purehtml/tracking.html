@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Live Tracking - TripSafety</title>
+
+
+    <!-- ============================================
+         TRIP SAFETY CSS
+    ============================================= -->
+
+    <link
+        rel="stylesheet"
+        href="css/global.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/tracking.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/responsive.css"
+    >
+
+
+    <!-- ============================================
+         LEAFLET CSS
+    ============================================= -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- ============================================
+         SIDEBAR
+    ============================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🛡️
+            <span>TripSafety</span>
+        </div>
+
+
+        <nav>
+
+            <a href="dashboard.html">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+
+            <a href="register-trip.html">
+                ➕
+                <span>Pre-Register Trip</span>
+            </a>
+
+
+            <a
+                href="tracking.html"
+                class="active"
+            >
+                📍
+                <span>Live Tracking</span>
+            </a>
+
+
+            <a href="trip-history.html">
+                🕘
+                <span>Trip History</span>
+            </a>
+
+
+            <a href="emergency-contacts.html">
+                👥
+                <span>Emergency Contacts</span>
+            </a>
+
+
+            <a href="notifications.html">
+                🔔
+                <span>Notifications</span>
+            </a>
+
+
+            <a href="settings.html">
+                ⚙️
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+            type="button"
+        >
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+
+    <!-- ============================================
+         MAIN CONTENT
+    ============================================= -->
+
+    <main class="main-content">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+            <div>
+
+                <h1>
+                    Live Tracking
+                </h1>
+
+                <p>
+                    Monitor your journey in real time.
+                </p>
+
+            </div>
+
+
+            <div
+                id="trackingStatus"
+                class="tracking-status"
+            >
+                ● GPS Ready
+            </div>
+
+        </div>
+
+
+
+        <!-- ========================================
+             TRACKING CARD
+        ========================================= -->
+
+        <section class="tracking-card">
+
+
+            <!-- TRIP HEADER -->
+
+            <div class="tracking-card-header">
+
+                <div>
+
+                    <h2 id="tripName">
+                        Loading trip...
+                    </h2>
+
+                    <p id="tripRoute">
+                        Loading route...
+                    </p>
+
+                </div>
+
+
+                <span
+                    id="tripStatus"
+                    class="trip-status"
+                >
+                    LOADING
+                </span>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 MAP
+            ===================================== -->
+
+            <div
+                id="map"
+                class="tracking-map"
+            ></div>
+
+
+
+            <!-- ====================================
+                 LOCATION INFORMATION
+            ===================================== -->
+
+            <div class="location-grid">
+
+
+                <div class="location-box">
+
+                    <span>
+                        📍 Current Latitude
+                    </span>
+
+                    <strong id="currentLatitude">
+                        Waiting...
+                    </strong>
+
+                </div>
+
+
+                <div class="location-box">
+
+                    <span>
+                        📍 Current Longitude
+                    </span>
+
+                    <strong id="currentLongitude">
+                        Waiting...
+                    </strong>
+
+                </div>
+
+
+                <div class="location-box">
+
+                    <span>
+                        🎯 GPS Accuracy
+                    </span>
+
+                    <strong id="gpsAccuracy">
+                        Waiting...
+                    </strong>
+
+                </div>
+
+
+                <div class="location-box">
+
+                    <span>
+                        📏 Distance
+                    </span>
+
+                    <strong id="distance">
+                        Calculating...
+                    </strong>
+
+                </div>
+
+
+                <div class="location-box">
+
+                    <span>
+                        ⏱️ ETA
+                    </span>
+
+                    <strong id="eta">
+                        Calculating...
+                    </strong>
+
+                </div>
+
+
+                <div class="location-box">
+
+                    <span>
+                        📌 Destination
+                    </span>
+
+                    <strong id="destination">
+                        Loading...
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 GPS STATUS
+            ===================================== -->
+
+            <div
+                id="gpsStatusBox"
+                class="gps-status-box"
+            >
+
+                <strong>
+                    GPS Status:
+                </strong>
+
+                <span id="gpsStatus">
+                    Waiting for GPS location...
+                </span>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 ACTION BUTTONS
+            ===================================== -->
+
+            <div class="tracking-actions">
+
+
+                <button
+                    id="startTrackingBtn"
+                    class="primary-btn"
+                    type="button"
+                >
+                    📍 Start GPS Tracking
+                </button>
+
+
+                <button
+                    id="stopTrackingBtn"
+                    class="secondary-btn"
+                    type="button"
+                >
+                    ⛔ Stop Tracking
+                </button>
+
+
+                <button
+                    id="completeTripBtn"
+                    class="complete-btn"
+                    type="button"
+                >
+                    ✅ Mark Trip Complete
+                </button>
+
+
+                <button
+                    id="sosBtn"
+                    class="sos-btn"
+                    type="button"
+                >
+                    🆘 SOS EMERGENCY
+                </button>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ============================================
+     LEAFLET JAVASCRIPT
+============================================= -->
+
+
+
+
+
+<!-- ============================================
+     TRIP SAFETY TRACKING JAVASCRIPT
+============================================= -->
+
+
+
+
+</body>
+
+</html>

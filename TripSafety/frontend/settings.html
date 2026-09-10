@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Settings - TripSafety</title>
+
+    <link
+        rel="stylesheet"
+        href="css/global.css"
+    >
+
+    <style>
+
+        /* =========================================
+           SETTINGS PAGE
+        ========================================= */
+
+        .settings-page {
+            padding: 28px 32px 50px;
+        }
+
+        .settings-container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .settings-header {
+            margin-bottom: 24px;
+        }
+
+        .settings-header h1 {
+            margin: 0;
+
+            font-size: 30px;
+            font-weight: 750;
+
+            color: #172033;
+        }
+
+        .settings-header p {
+            margin: 6px 0 0;
+
+            color: #718096;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           CARD
+        ========================================= */
+
+        .settings-card {
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 20px 22px;
+
+            margin-bottom: 16px;
+
+            box-shadow:
+                0 5px 18px rgba(15, 23, 42, 0.06);
+        }
+
+
+        /* =========================================
+           CARD HEADER
+        ========================================= */
+
+        .card-header {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 16px;
+
+            padding-bottom: 13px;
+
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .card-header-icon {
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: #eff6ff;
+
+            font-size: 18px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+
+            font-size: 16px;
+
+            color: #172033;
+        }
+
+        .card-header p {
+            margin: 2px 0 0;
+
+            font-size: 10px;
+
+            color: #94a3b8;
+        }
+
+
+        /* =========================================
+           PROFILE
+        ========================================= */
+
+        .profile-box {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+        .profile-avatar {
+            width: 52px;
+            height: 52px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 19px;
+
+            font-weight: 700;
+        }
+
+        .profile-name {
+            margin: 0;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            color: #172033;
+        }
+
+        .profile-email {
+            margin: 3px 0 0;
+
+            color: #718096;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           SETTING ROW
+        ========================================= */
+
+        .setting-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .setting-row:first-child {
+            padding-top: 0;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-title {
+            display: block;
+
+            color: #172033;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 3px;
+        }
+
+        .setting-description {
+            color: #94a3b8;
+
+            font-size: 10px;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================================
+           TOGGLE
+        ========================================= */
+
+        .toggle {
+            position: relative;
+
+            width: 42px;
+            height: 23px;
+
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+
+            inset: 0;
+
+            cursor: pointer;
+
+            background: #cbd5e1;
+
+            border-radius: 30px;
+
+            transition: 0.25s;
+        }
+
+        .slider::before {
+            content: "";
+
+            position: absolute;
+
+            width: 17px;
+            height: 17px;
+
+            left: 3px;
+            top: 3px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.2);
+
+            transition: 0.25s;
+        }
+
+        .toggle input:checked + .slider {
+            background: #2563eb;
+        }
+
+        .toggle input:checked + .slider::before {
+            transform: translateX(19px);
+        }
+
+
+        /* =========================================
+           LANGUAGE
+        ========================================= */
+
+        .language-select {
+            min-width: 180px;
+
+            padding: 9px 12px;
+
+            border: 1px solid #dbe2ea;
+
+            border-radius: 8px;
+
+            background: white;
+
+            color: #172033;
+
+            font-size: 11px;
+
+            outline: none;
+
+            cursor: pointer;
+        }
+
+        .language-select:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,0.08);
+        }
+
+
+        /* =========================================
+           PRIVACY
+        ========================================= */
+
+        .privacy-note {
+            background: #eff6ff;
+
+            border-left: 4px solid #2563eb;
+
+            border-radius: 8px;
+
+            padding: 13px;
+
+            color: #334155;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           PASSWORD
+        ========================================= */
+
+        .password-form {
+            display: grid;
+
+            gap: 13px;
+
+            max-width: 620px;
+        }
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+        .form-group label {
+            color: #334155;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 11px 12px;
+
+            border: 1px solid #dbe2ea;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+
+            outline: none;
+
+            background: white;
+
+            color: #172033;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,0.08);
+        }
+
+        .password-btn {
+            width: fit-content;
+
+            border: none;
+
+            background: #2563eb;
+
+            color: white;
+
+            padding: 10px 16px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .password-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .password-btn:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+        }
+
+        #settingsMessage {
+            margin-top: 4px;
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           DARK MODE
+        ========================================= */
+
+        body.dark-mode {
+            background: #0f172a;
+            color: #f8fafc;
+        }
+
+        body.dark-mode .settings-header h1 {
+            color: #f8fafc;
+        }
+
+        body.dark-mode .settings-header p {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .settings-card {
+            background: #1e293b;
+
+            border-color: #334155;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.25);
+        }
+
+        body.dark-mode .card-header {
+            border-bottom-color: #334155;
+        }
+
+        body.dark-mode .card-header h2,
+        body.dark-mode .profile-name,
+        body.dark-mode .setting-title {
+            color: #f8fafc;
+        }
+
+        body.dark-mode .card-header p,
+        body.dark-mode .setting-description,
+        body.dark-mode .profile-email {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .setting-row {
+            border-bottom-color: #334155;
+        }
+
+        body.dark-mode .language-select,
+        body.dark-mode .form-group input {
+            background: #0f172a;
+
+            color: #f8fafc;
+
+            border-color: #475569;
+        }
+
+        body.dark-mode .form-group label {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .privacy-note {
+            background: #172554;
+
+            color: #bfdbfe;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .settings-page {
+                padding: 18px 15px 40px;
+            }
+
+            .settings-header h1 {
+                font-size: 25px;
+            }
+
+            .settings-card {
+                padding: 17px;
+            }
+
+            .setting-row {
+                align-items: flex-start;
+            }
+
+            .language-select {
+                min-width: 130px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .setting-row {
+                flex-direction: column;
+            }
+
+            .toggle {
+                align-self: flex-start;
+            }
+
+            .language-select {
+                width: 100%;
+            }
+
+            .profile-avatar {
+                width: 46px;
+                height: 46px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        🛡️ <span>TripSafety</span>
+    </div>
+
+
+    <nav>
+
+        <a href="dashboard.html">
+            🏠 <span>Dashboard</span>
+        </a>
+
+        <a href="register-trip.html">
+            ➕ <span>Pre-Register Trip</span>
+        </a>
+
+        <a href="tracking.html">
+            📍 <span>Live Tracking</span>
+        </a>
+
+        <a href="trip-history.html">
+            🕘 <span>Trip History</span>
+        </a>
+
+        <a href="emergency-contacts.html">
+            👥 <span>Emergency Contacts</span>
+        </a>
+
+        <a href="notifications.html">
+            🔔 <span>Notifications</span>
+        </a>
+
+        <a
+            href="settings.html"
+            class="active"
+        >
+            ⚙️ <span>Settings</span>
+        </a>
+
+    </nav>
+
+
+    <button
+        id="logoutBtn"
+        class="logout-btn"
+    >
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+
+<!-- =========================================
+     MAIN CONTENT
+========================================= -->
+
+<main class="main-content">
+
+    <div class="settings-page">
+
+        <div class="settings-container">
+
+
+            <!-- HEADER -->
+
+            <div class="settings-header">
+
+                <h1>
+                    ⚙️ Settings
+                </h1>
+
+                <p>
+                    Manage your TripSafety preferences and account.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 ACCOUNT
+            ================================== -->
+
+            <section class="settings-card">
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        👤
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Account
+                        </h2>
+
+                        <p>
+                            Your TripSafety account information
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-box">
+
+                    <div
+                        id="profileAvatar"
+                        class="profile-avatar"
+                    >
+                        A
+                    </div>
+
+                    <div>
+
+                        <h3
+                            id="profileName"
+                            class="profile-name"
+                        >
+                            Loading...
+                        </h3>
+
+                        <p
+                            id="profileEmail"
+                            class="profile-email"
+                        >
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 APPEARANCE
+            ================================== -->
+
+            <section class="settings-card">
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        🎨
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Appearance
+                        </h2>
+
+                        <p>
+                            Customize how TripSafety looks.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Dark Mode
+                        </span>
+
+                        <span class="setting-description">
+                            Use a darker appearance for TripSafety.
+                        </span>
+
+                    </div>
+
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="darkModeToggle"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 NOTIFICATIONS
+            ================================== -->
+
+            <section class="settings-card">
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        🔔
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Notifications
+                        </h2>
+
+                        <p>
+                            Control which alerts you receive.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Push Notifications
+                        </span>
+
+                        <span class="setting-description">
+                            Receive TripSafety notifications.
+                        </span>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="pushNotifications"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            SMS Alerts
+                        </span>
+
+                        <span class="setting-description">
+                            Receive important emergency alerts.
+                        </span>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="smsAlerts"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Trip Notifications
+                        </span>
+
+                        <span class="setting-description">
+                            Receive updates about your registered trips.
+                        </span>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="tripNotifications"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Emergency Notifications
+                        </span>
+
+                        <span class="setting-description">
+                            Receive important SOS and emergency updates.
+                        </span>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="emergencyNotifications"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 SAFETY
+            ================================== -->
+
+            <section class="settings-card">
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        🛡️
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Safety
+                        </h2>
+
+                        <p>
+                            Configure emergency safety features.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Shake Detection
+                        </span>
+
+                        <span class="setting-description">
+                            Detect device shaking for emergency activation.
+                        </span>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="shakeDetection"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Voice Detection
+                        </span>
+
+                        <span class="setting-description">
+                            Enable emergency voice detection when supported.
+                        </span>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="voiceDetection"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Automatic Tracking
+                        </span>
+
+                        <span class="setting-description">
+                            Automatically start tracking when a trip begins.
+                        </span>
+
+                    </div>
+
+                    <label class="toggle">
+
+                        <input
+                            type="checkbox"
+                            id="automaticTracking"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 LANGUAGE
+            ================================== -->
+
+            <section class="settings-card">
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        🌐
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Language
+                        </h2>
+
+                        <p>
+                            Select your preferred application language.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <span class="setting-title">
+                            Application Language
+                        </span>
+
+                        <span class="setting-description">
+                            Choose your preferred language.
+                        </span>
+
+                    </div>
+
+
+                    <select
+                        id="languageSelect"
+                        class="language-select"
+                    >
+
+                        <option value="en">
+                            🇬🇧 English
+                        </option>
+
+                        <option value="mr">
+                            🇮🇳 मराठी
+                        </option>
+
+                        <option value="hi">
+                            🇮🇳 हिन्दी
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 PRIVACY
+            ================================== -->
+
+            <section class="settings-card">
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        🔒
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Privacy
+                        </h2>
+
+                        <p>
+                            Information about your location data.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="privacy-note">
+
+                    🔐 Your location data is used for active trip
+                    tracking and emergency notifications.
+                    Tracking should not continue when there is
+                    no active trip or emergency.
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================
+                 CHANGE PASSWORD
+            ================================== -->
+
+            <section class="settings-card">
+
+                <div class="card-header">
+
+                    <div class="card-header-icon">
+                        🔑
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Change Password
+                        </h2>
+
+                        <p>
+                            Update your account password.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    id="passwordForm"
+                    class="password-form"
+                >
+
+
+                    <div class="form-group">
+
+                        <label for="currentPassword">
+                            Current Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="currentPassword"
+                            placeholder="Enter current password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="newPassword">
+                            New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="newPassword"
+                            placeholder="Enter new password"
+                            minlength="6"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm New Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            placeholder="Confirm new password"
+                            minlength="6"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="changePasswordBtn"
+                        class="password-btn"
+                    >
+                        🔑 Change Password
+                    </button>
+
+
+                    <div
+                        id="settingsMessage"
+                    ></div>
+
+
+                </form>
+
+            </section>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<script src="js/settings.js"></script>
+
+
+</body>
+
+</html>

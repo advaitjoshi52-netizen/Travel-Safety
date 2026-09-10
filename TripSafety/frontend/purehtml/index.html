@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TripSafety - Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f5f7fb;
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+        }
+
+        /* =========================
+           LEFT SIDE
+        ========================= */
+
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            padding: 60px 8%;
+            color: white;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb 0%,
+                #0891b2 50%,
+                #16a34a 100%
+            );
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            top: -200px;
+            right: -120px;
+        }
+
+        .hero-section::after {
+            content: "";
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            bottom: -190px;
+            left: -130px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .brand-icon {
+            font-size: 28px;
+        }
+
+        .brand-name {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .brand-tagline {
+            margin-left: 40px;
+            margin-bottom: 65px;
+
+            font-size: 13px;
+            letter-spacing: 1px;
+
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            font-size: clamp(48px, 5vw, 70px);
+            line-height: 1;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .hero-description {
+            max-width: 600px;
+
+            font-size: 17px;
+            line-height: 1.7;
+
+            margin-bottom: 35px;
+
+            opacity: 0.95;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 14px;
+            max-width: 560px;
+        }
+
+        .feature {
+            min-height: 52px;
+
+            padding: 14px 18px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(
+                255,
+                255,
+                255,
+                0.2
+            );
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.10
+            );
+
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .form-section {
+            min-height: 100vh;
+
+            padding: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #f8fafc;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+
+            padding: 42px;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 55px
+                rgba(15, 23, 42, 0.10);
+        }
+
+        .auth-view {
+            display: none;
+        }
+
+        .auth-view.active {
+            display: block;
+        }
+
+        .auth-logo {
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: #eff6ff;
+
+            font-size: 28px;
+        }
+
+        .auth-title {
+            text-align: center;
+
+            color: #111827;
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group label {
+            display: block;
+
+            color: #1f2937;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 15px;
+
+            z-index: 2;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 49px;
+
+            padding: 0 45px 0 42px;
+
+            border: 1px solid #d7dfeb;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            background: #f8fafc;
+
+            color: #111827;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .form-input:focus {
+            background: white;
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37, 99, 235, 0.10);
+        }
+
+        .form-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .toggle-password {
+            position: absolute;
+
+            right: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .forgot {
+            display: block;
+
+            text-align: right;
+
+            margin-top: -4px;
+            margin-bottom: 23px;
+
+            color: #2563eb;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .primary-btn {
+            width: 100%;
+            height: 49px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .primary-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .primary-btn:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            margin: 24px 0;
+
+            color: #94a3b8;
+
+            font-size: 12px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #e5e7eb;
+        }
+
+        .switch-text {
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+        .switch-link {
+            color: #2563eb;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .security-note {
+            text-align: center;
+
+            margin-top: 23px;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+        }
+
+        .message {
+            display: none;
+
+            padding: 11px 13px;
+
+            margin-bottom: 17px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            line-height: 1.4;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            color: #b91c1c;
+
+            background: #fef2f2;
+
+            border: 1px solid #fecaca;
+        }
+
+        .message.success {
+            color: #15803d;
+
+            background: #f0fdf4;
+
+            border: 1px solid #bbf7d0;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .auth-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                min-height: auto;
+                padding: 55px 8%;
+            }
+
+            .form-section {
+                min-height: auto;
+                padding: 50px 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero-section {
+                padding: 40px 25px;
+            }
+
+            .brand-tagline {
+                margin-left: 0;
+                margin-bottom: 35px;
+            }
+
+            .hero-title {
+                font-size: 44px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 25px 15px;
+            }
+
+            .auth-card {
+                padding: 30px 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🛡️
+                </div>
+
+                <div class="brand-name">
+                    TripSafety
+                </div>
+
+            </div>
+
+            <div class="brand-tagline">
+                SMART TRAVEL SAFETY
+            </div>
+
+            <h1 class="hero-title">
+                Your journey.<br>
+                Your safety.
+            </h1>
+
+            <p class="hero-description">
+                Stay connected, monitor your journey and keep your
+                emergency contacts ready wherever you travel.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+                    📍
+                    Real-time GPS Tracking
+                </div>
+
+                <div class="feature">
+                    🚨
+                    One-tap SOS Alert
+                </div>
+
+                <div class="feature">
+                    🗺️
+                    Live Route Monitoring
+                </div>
+
+                <div class="feature">
+                    👥
+                    Emergency Contacts
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         AUTH
+    ========================= -->
+
+    <section class="form-section">
+
+        <div class="auth-card">
+
+
+            <!-- =========================
+                 LOGIN
+            ========================= -->
+
+            <div
+                id="loginSection"
+                class="auth-view active"
+            >
+
+                <div class="auth-logo">
+                    🛡️
+                </div>
+
+                <h2 class="auth-title">
+                    Welcome Back
+                </h2>
+
+                <p class="auth-subtitle">
+                    Login to continue to<br>
+                    TripSafety
+                </p>
+
+                <div
+                    id="loginMessage"
+                    class="message"
+                ></div>
+
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉️
+                            </span>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                class="form-input"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="loginPassword">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🔐
+                            </span>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                class="form-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                onclick="togglePassword(
+                                    'loginPassword',
+                                    this
+                                )"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <span
+                        class="forgot"
+                        onclick="showForgot()"
+                    >
+                        Forgot Password?
+                    </span>
+
+
+                    <button
+                        type="submit"
+                        id="loginBtn"
+                        class="primary-btn"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <div class="divider">
+                    OR
+                </div>
+
+
+                <div class="switch-text">
+
+                    Don't have an account?
+
+                    <span
+                        class="switch-link"
+                        onclick="showSignup()"
+                    >
+                        Create Account
+                    </span>
+
+                </div>
+
+
+                <div class="security-note">
+                    🔐 Your account is protected with secure authentication.
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 SIGNUP
+            ========================= -->
+
+            <div
+                id="signupSection"
+                class="auth-view"
+            >
+
+                <div class="auth-logo">
+                    🛡️
+                </div>
+
+                <h2 class="auth-title">
+                    Create Account
+                </h2>
+
+                <p class="auth-subtitle">
+                    Create your TripSafety account
+                </p>
+
+                <div
+                    id="registerMessage"
+                    class="message"
+                ></div>
+
+
+                <form id="registerForm">
+
+                    <div class="form-group">
+
+                        <label for="registerName">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                            <input
+                                type="text"
+                                id="registerName"
+                                class="form-input"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerEmail">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉️
+                            </span>
+
+                            <input
+                                type="email"
+                                id="registerEmail"
+                                class="form-input"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="registerPassword">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                🔐
+                            </span>
+
+                            <input
+                                type="password"
+                                id="registerPassword"
+                                class="form-input"
+                                placeholder="Create a password"
+                                minlength="6"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="toggle-password"
+                                onclick="togglePassword(
+                                    'registerPassword',
+                                    this
+                                )"
+                            >
+                                👁️
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="registerBtn"
+                        class="primary-btn"
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+
+                <div class="divider">
+                    OR
+                </div>
+
+
+                <div class="switch-text">
+
+                    Already have an account?
+
+                    <span
+                        class="switch-link"
+                        onclick="showLogin()"
+                    >
+                        Login
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 FORGOT PASSWORD
+            ========================= -->
+
+            <div
+                id="forgotSection"
+                class="auth-view"
+            >
+
+                <div class="auth-logo">
+                    🔑
+                </div>
+
+                <h2 class="auth-title">
+                    Forgot Password?
+                </h2>
+
+                <p class="auth-subtitle">
+                    Enter your registered email address.
+                </p>
+
+                <div
+                    id="forgotMessage"
+                    class="message"
+                ></div>
+
+
+                <form id="forgotForm">
+
+                    <div class="form-group">
+
+                        <label for="forgotEmail">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉️
+                            </span>
+
+                            <input
+                                type="email"
+                                id="forgotEmail"
+                                class="form-input"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        id="forgotBtn"
+                        class="primary-btn"
+                    >
+                        Send Reset Request
+                    </button>
+
+                </form>
+
+
+                <div class="divider">
+                    OR
+                </div>
+
+
+                <div class="switch-text">
+
+                    Remember your password?
+
+                    <span
+                        class="switch-link"
+                        onclick="showLogin()"
+                    >
+                        Login
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+
+
+</body>
+</html>

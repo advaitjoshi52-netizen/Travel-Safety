@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TripSafety - Dashboard</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        /* ========================================
+           SIDEBAR
+        ======================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 235px;
+            height: 100vh;
+
+            background: #ffffff;
+            border-right: 1px solid #e5eaf1;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 1000;
+        }
+
+        .sidebar-logo {
+            height: 82px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 28px;
+
+            border-bottom: 1px solid #eef1f5;
+        }
+
+        .sidebar-logo-icon {
+            font-size: 25px;
+            margin-right: 9px;
+        }
+
+        .sidebar-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .sidebar-menu {
+            padding: 22px 14px;
+            flex: 1;
+        }
+
+        .menu-label {
+            margin: 0 14px 12px;
+
+            color: #9aa4b2;
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+
+            height: 46px;
+
+            margin-bottom: 6px;
+            padding: 0 14px;
+
+            border-radius: 10px;
+
+            color: #526078;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .sidebar-menu a:hover {
+            background: #f2f6ff;
+            color: #2563eb;
+        }
+
+        .sidebar-menu a.active {
+            background: #eaf2ff;
+            color: #2563eb;
+        }
+
+        .menu-icon {
+            width: 30px;
+            font-size: 17px;
+        }
+
+        .sidebar-bottom {
+            padding: 18px 14px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            height: 43px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: #fff0f0;
+            color: #dc2626;
+
+            font-weight: 700;
+            font-size: 13px;
+
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #fee2e2;
+        }
+
+
+        /* ========================================
+           MAIN
+        ======================================== */
+
+        .main-content {
+            margin-left: 235px;
+            min-height: 100vh;
+
+            padding: 28px 34px 45px;
+        }
+
+
+        /* ========================================
+           TOP HEADER
+        ======================================== */
+
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            margin: 0;
+
+            font-size: 27px;
+            font-weight: 800;
+
+            color: #172033;
+        }
+
+        .page-title p {
+            margin: 6px 0 0;
+
+            color: #7b8799;
+            font-size: 13px;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+            color: white;
+
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .user-info strong {
+            display: block;
+            font-size: 13px;
+            color: #172033;
+        }
+
+        .user-info span {
+            display: block;
+            margin-top: 3px;
+            color: #8a95a6;
+            font-size: 11px;
+        }
+
+
+        /* ========================================
+           HERO
+        ======================================== */
+
+        .dashboard-hero {
+            position: relative;
+            overflow: hidden;
+
+            min-height: 190px;
+
+            padding: 30px 36px;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #2563eb 0%,
+                    #168da7 52%,
+                    #16a34a 100%
+                );
+
+            color: white;
+
+            margin-bottom: 25px;
+        }
+
+        .dashboard-hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 320px;
+            height: 320px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.07);
+
+            right: -80px;
+            top: -180px;
+        }
+
+        .dashboard-hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.06);
+
+            right: 150px;
+            bottom: -130px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+
+        .hero-label {
+            font-size: 11px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            margin: 8px 0 7px;
+
+            font-size: 34px;
+            line-height: 1.1;
+
+            font-weight: 800;
+        }
+
+        .hero-description {
+            margin: 0;
+
+            max-width: 590px;
+
+            font-size: 14px;
+            line-height: 1.6;
+
+            opacity: 0.92;
+        }
+
+        .hero-shield {
+            position: absolute;
+
+            right: 55px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            z-index: 2;
+
+            font-size: 82px;
+
+            filter:
+                drop-shadow(
+                    0 8px 12px
+                    rgba(0,0,0,0.18)
+                );
+        }
+
+
+        /* ========================================
+           STAT CARDS
+        ======================================== */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 17px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            min-height: 120px;
+
+            padding: 21px;
+
+            background: white;
+
+            border: 1px solid #e8edf3;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+
+            box-shadow:
+                0 4px 16px
+                rgba(15,23,42,0.04);
+        }
+
+        .stat-icon {
+            width: 49px;
+            height: 49px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #eef4ff;
+
+            font-size: 22px;
+        }
+
+        .stat-info {
+            min-width: 0;
+        }
+
+        .stat-info span {
+            display: block;
+
+            color: #7c8798;
+
+            font-size: 12px;
+        }
+
+        .stat-info strong {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #172033;
+
+            font-size: 26px;
+            font-weight: 800;
+        }
+
+
+        /* ========================================
+           CONTENT GRID
+        ======================================== */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.55fr)
+                minmax(300px, 0.9fr);
+
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+
+            border: 1px solid #e8edf3;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 4px 16px
+                rgba(15,23,42,0.04);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 21px 23px 15px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+
+            color: #172033;
+
+            font-size: 17px;
+        }
+
+        .card-header p {
+            margin: 4px 0 0;
+
+            color: #8b95a5;
+
+            font-size: 11px;
+        }
+
+        .status-badge {
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            background: #f1f5f9;
+
+            color: #64748b;
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+
+        /* ========================================
+           ACTIVE TRIP
+        ======================================== */
+
+        .active-trip-content {
+            padding: 12px 23px 25px;
+        }
+
+        .no-trip {
+            min-height: 245px;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .no-trip-icon {
+            width: 68px;
+            height: 68px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #eef4ff;
+
+            font-size: 31px;
+
+            margin-bottom: 15px;
+        }
+
+        .no-trip h3 {
+            margin: 0;
+
+            font-size: 16px;
+            color: #172033;
+        }
+
+        .no-trip p {
+            margin: 7px 0 17px;
+
+            color: #8b95a5;
+
+            font-size: 12px;
+        }
+
+        .primary-link {
+            color: #2563eb;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+
+        /* ========================================
+           SAFETY TIPS
+        ======================================== */
+
+        .safety-list {
+            padding: 5px 23px 22px;
+        }
+
+        .safety-item {
+            display: flex;
+
+            gap: 13px;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .safety-item:last-child {
+            border-bottom: none;
+        }
+
+        .safety-icon {
+            width: 38px;
+            height: 38px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: #f3f6fb;
+
+            font-size: 17px;
+        }
+
+        .safety-item strong {
+            display: block;
+
+            color: #263247;
+
+            font-size: 12px;
+        }
+
+        .safety-item span {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #8b95a5;
+
+            font-size: 11px;
+
+            line-height: 1.4;
+        }
+
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+
+        @media (max-width: 1100px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-shield {
+                right: 30px;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                width: 72px;
+            }
+
+            .sidebar-logo {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .sidebar-logo-text,
+            .menu-label,
+            .sidebar-menu a span:not(.menu-icon),
+            .logout-btn {
+                display: none;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .menu-icon {
+                width: auto;
+            }
+
+            .sidebar-bottom {
+                display: flex;
+                justify-content: center;
+            }
+
+            .main-content {
+                margin-left: 72px;
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 28px;
+            }
+
+            .hero-shield {
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-header {
+                align-items: flex-start;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .dashboard-hero {
+                padding: 25px;
+            }
+
+            .hero-title {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <span class="sidebar-logo-icon">
+            🛡️
+        </span>
+
+        <span class="sidebar-logo-text">
+            TripSafety
+        </span>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <div class="menu-label">
+            Main Menu
+        </div>
+
+        <a href="dashboard.html" class="active">
+            <span class="menu-icon">🏠</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="register-trip.html">
+            <span class="menu-icon">➕</span>
+            <span>Pre-Register Trip</span>
+        </a>
+
+        <a href="tracking.html">
+            <span class="menu-icon">📍</span>
+            <span>Live Tracking</span>
+        </a>
+
+        <a href="trip-history.html">
+            <span class="menu-icon">🕘</span>
+            <span>Trip History</span>
+        </a>
+
+
+        <div class="menu-label" style="margin-top:25px;">
+            Safety
+        </div>
+
+        <a href="emergency-contacts.html">
+            <span class="menu-icon">👥</span>
+            <span>Emergency Contacts</span>
+        </a>
+
+        <a href="notifications.html">
+            <span class="menu-icon">🔔</span>
+            <span>Notifications</span>
+        </a>
+
+
+        <div class="menu-label" style="margin-top:25px;">
+            Account
+        </div>
+
+        <a href="settings.html">
+            <span class="menu-icon">⚙️</span>
+            <span>Settings</span>
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            🚪 Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+
+<!-- ==========================================
+     MAIN CONTENT
+========================================== -->
+
+<main class="main-content">
+
+
+    <!-- TOP HEADER -->
+
+    <header class="top-header">
+
+        <div class="page-title">
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Monitor your trips and stay connected with your emergency contacts.
+            </p>
+
+        </div>
+
+
+        <div class="user-area">
+
+            <div class="user-avatar" id="profileAvatar">
+                A
+            </div>
+
+            <div class="user-info">
+
+                <strong id="profileName">
+                    Advait Joshi
+                </strong>
+
+                <span>
+                    Traveler
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- HERO -->
+
+    <section class="dashboard-hero">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                TRAVEL WITH CONFIDENCE
+            </div>
+
+            <div class="hero-title">
+                Your journey.<br>
+                Your safety.
+            </div>
+
+            <p class="hero-description">
+                Plan your trip, share your journey with trusted contacts,
+                monitor your location and stay prepared for emergencies.
+            </p>
+
+        </div>
+
+        <div class="hero-shield">
+            🛡️
+        </div>
+
+    </section>
+
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📍
+            </div>
+
+            <div class="stat-info">
+
+                <span>
+                    Active Trips
+                </span>
+
+                <strong id="activeTripsCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📅
+            </div>
+
+            <div class="stat-info">
+
+                <span>
+                    Upcoming Trips
+                </span>
+
+                <strong id="upcomingTripsCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <div class="stat-info">
+
+                <span>
+                    Trusted Contacts
+                </span>
+
+                <strong id="trustedContactsCount">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🛡️
+            </div>
+
+            <div class="stat-info">
+
+                <span>
+                    Safety Readiness
+                </span>
+
+                <strong id="safetyReadiness">
+                    0%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- MAIN DASHBOARD -->
+
+    <section class="dashboard-grid">
+
+
+        <!-- ACTIVE TRIP -->
+
+        <div class="dashboard-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Active Trip
+                    </h2>
+
+                    <p>
+                        Your current journey
+                    </p>
+
+                </div>
+
+                <span
+                    class="status-badge"
+                    id="activeTripStatus"
+                >
+                    No Active Trip
+                </span>
+
+            </div>
+
+
+            <div
+                class="active-trip-content"
+                id="activeTripContainer"
+            >
+
+                <div class="no-trip">
+
+                    <div class="no-trip-icon">
+                        🧳
+                    </div>
+
+                    <h3>
+                        No active trip
+                    </h3>
+
+                    <p>
+                        Start a registered trip to begin live tracking.
+                    </p>
+
+                    <a
+                        href="register-trip.html"
+                        class="primary-link"
+                    >
+                        Register a Trip →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SAFETY TIPS -->
+
+        <div class="dashboard-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        Safety Tips
+                    </h2>
+
+                    <p>
+                        Stay safe during your journey
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="safety-list">
+
+
+                <div class="safety-item">
+
+                    <div class="safety-icon">
+                        🔋
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Keep your phone charged
+                        </strong>
+
+                        <span>
+                            Carry a power bank for emergencies.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="safety-item">
+
+                    <div class="safety-icon">
+                        👥
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Share your trip
+                        </strong>
+
+                        <span>
+                            Keep trusted contacts informed.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="safety-item">
+
+                    <div class="safety-icon">
+                        📍
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Enable location
+                        </strong>
+
+                        <span>
+                            Allow GPS access during tracking.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="safety-item">
+
+                    <div class="safety-icon">
+                        🚨
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Know your SOS controls
+                        </strong>
+
+                        <span>
+                            Keep emergency options accessible.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- IMPORTANT:
+     Keep your existing dashboard.js
+-->
+
+<script src="js/api.js"></script>
+<script src="js/dashboard.js"></script>
+
+
+</body>
+
+</html>

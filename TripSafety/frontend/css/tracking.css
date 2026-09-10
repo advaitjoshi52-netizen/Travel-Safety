@@ -1,0 +1,368 @@
+/* =========================================
+   TRACKING PAGE
+========================================= */
+
+.page-header {
+
+    padding: 28px 30px 18px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+.page-header h1 {
+
+    margin: 0;
+
+    font-size: 30px;
+
+}
+
+.page-header p {
+
+    margin-top: 5px;
+
+    color: #64748b;
+
+}
+
+
+
+/* =========================================
+   GPS STATUS
+========================================= */
+
+.tracking-status {
+
+    padding: 9px 15px;
+
+    border-radius: 20px;
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.tracking-card {
+
+    margin: 0 30px 30px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.06);
+
+}
+
+
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
+.tracking-card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
+}
+
+.tracking-card-header h2 {
+
+    margin: 0;
+
+    font-size: 21px;
+
+}
+
+.tracking-card-header p {
+
+    margin-top: 5px;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+}
+
+.trip-status {
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+
+/* =========================================
+   MAP
+========================================= */
+
+.tracking-map {
+
+    width: 100%;
+
+    height: 430px;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/* =========================================
+   LOCATION GRID
+========================================= */
+
+.location-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+}
+
+
+
+.location-box {
+
+    background: #f8fafc;
+
+    border: 1px solid #e5eaf1;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+}
+
+
+
+.location-box span {
+
+    display: block;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-bottom: 7px;
+
+}
+
+
+
+.location-box strong {
+
+    font-size: 15px;
+
+    color: #172033;
+
+}
+
+
+
+/* =========================================
+   GPS STATUS BOX
+========================================= */
+
+.gps-status-box {
+
+    margin-top: 18px;
+
+    padding: 13px 15px;
+
+    background: #eff6ff;
+
+    border-radius: 9px;
+
+    color: #1e40af;
+
+    font-size: 14px;
+
+}
+
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.tracking-actions {
+
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+
+}
+
+
+
+.tracking-actions button {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 12px 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+
+.primary-btn {
+
+    background: #2563eb;
+
+    color: white;
+
+}
+
+
+
+.primary-btn:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+
+.secondary-btn {
+
+    background: #e2e8f0;
+
+    color: #334155;
+
+}
+
+
+
+.complete-btn {
+
+    background: #16a34a;
+
+    color: white;
+
+}
+
+
+
+.sos-btn {
+
+    background: #dc2626;
+
+    color: white;
+
+}
+
+
+
+.sos-btn:hover {
+
+    background: #b91c1c;
+
+}
+
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .location-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .tracking-map {
+
+        height: 350px;
+
+    }
+
+}
+
+
+
+@media (max-width: 500px) {
+
+    .page-header {
+
+        padding: 20px;
+
+    }
+
+    .tracking-card {
+
+        margin: 0 15px 20px;
+
+        padding: 15px;
+
+    }
+
+    .location-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .tracking-map {
+
+        height: 300px;
+
+    }
+
+}

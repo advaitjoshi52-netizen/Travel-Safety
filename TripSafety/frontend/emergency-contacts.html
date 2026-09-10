@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Emergency Contacts - TripSafety</title>
+
+    <link
+        rel="stylesheet"
+        href="css/global.css"
+    >
+
+    <style>
+
+        /* =========================================
+           PAGE
+        ========================================= */
+
+        .contacts-page {
+            padding: 30px;
+        }
+
+        .contacts-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .contacts-header {
+            margin-bottom: 24px;
+        }
+
+        .contacts-header h1 {
+            margin: 0;
+            color: #172033;
+            font-size: 30px;
+        }
+
+        .contacts-header p {
+            margin: 6px 0 0;
+            color: #718096;
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           TOP SUMMARY
+        ========================================= */
+
+        .contact-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 18px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .summary-label {
+            color: #718096;
+            font-size: 11px;
+            margin-bottom: 7px;
+        }
+
+        .summary-value {
+            color: #172033;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+
+        /* =========================================
+           FORM CARD
+        ========================================= */
+
+        .contact-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 24px;
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.06);
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .card-heading-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eff6ff;
+            border-radius: 10px;
+
+            font-size: 20px;
+        }
+
+        .card-heading h2 {
+            margin: 0;
+            color: #172033;
+            font-size: 20px;
+        }
+
+        .card-heading p {
+            margin: 3px 0 0;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 7px;
+            color: #334155;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .form-group input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 11px 13px;
+
+            border: 1px solid #dbe2ea;
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 12px;
+            color: #172033;
+
+            transition: 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,0.10);
+        }
+
+        .form-group input::placeholder {
+            color: #a0aec0;
+        }
+
+
+        /* =========================================
+           FORM ACTIONS
+        ========================================= */
+
+        .form-actions {
+            grid-column: 1 / -1;
+
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+            margin-top: 5px;
+        }
+
+        .contact-submit {
+            border: none;
+
+            background: #2563eb;
+            color: white;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .contact-submit:hover {
+            background: #1d4ed8;
+        }
+
+        .contact-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .cancel-edit {
+            display: none;
+
+            border: none;
+
+            background: #f1f5f9;
+            color: #475569;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .cancel-edit:hover {
+            background: #e2e8f0;
+        }
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        .contact-message {
+            margin-top: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .message-success {
+            color: #15803d;
+        }
+
+        .message-error {
+            color: #dc2626;
+        }
+
+
+        /* =========================================
+           CONTACT LIST HEADER
+        ========================================= */
+
+        .contacts-list-card {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 15px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 5px 18px rgba(0,0,0,0.06);
+        }
+
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+        .list-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .list-title h2 {
+            margin: 0;
+            color: #172033;
+            font-size: 20px;
+        }
+
+        .list-title span {
+            background: #eff6ff;
+            color: #2563eb;
+
+            padding: 5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .search-contact {
+            width: 230px;
+        }
+
+        .search-contact input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 9px 12px;
+
+            border: 1px solid #dbe2ea;
+            border-radius: 8px;
+
+            outline: none;
+
+            font-size: 12px;
+        }
+
+        .search-contact input:focus {
+            border-color: #2563eb;
+        }
+
+
+        /* =========================================
+           CONTACT GRID
+        ========================================= */
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+
+        /* =========================================
+           CONTACT ITEM
+        ========================================= */
+
+        .contact-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+
+            padding: 16px;
+
+            background: #ffffff;
+
+            transition: 0.2s;
+        }
+
+        .contact-item:hover {
+            border-color: #bfdbfe;
+
+            box-shadow:
+                0 5px 15px rgba(37,99,235,0.08);
+        }
+
+
+        .contact-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 10px;
+        }
+
+
+        .contact-person {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+
+        .contact-avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eff6ff;
+            color: #2563eb;
+
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+
+        .contact-name {
+            color: #172033;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+
+        .contact-relation {
+            margin-top: 3px;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+        }
+
+
+        .trusted-badge {
+            background: #dcfce7;
+            color: #15803d;
+
+            padding: 5px 8px;
+
+            border-radius: 15px;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        /* =========================================
+           PHONE
+        ========================================= */
+
+        .contact-phone {
+            margin-top: 15px;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px;
+
+            background: #f8fafc;
+
+            border-radius: 8px;
+
+            color: #334155;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           ACTIONS
+        ========================================= */
+
+        .contact-actions {
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 12px;
+        }
+
+
+        .contact-action {
+            flex: 1;
+
+            border: none;
+
+            padding: 9px;
+
+            border-radius: 7px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            text-align: center;
+        }
+
+
+        .call-btn {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+
+        .edit-btn {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+
+        .delete-btn {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+
+        .contact-action:hover {
+            opacity: 0.85;
+        }
+
+
+        /* =========================================
+           STATES
+        ========================================= */
+
+        .contacts-state {
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: #718096;
+        }
+
+        .state-icon {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .contacts-state h3 {
+            margin: 0 0 6px;
+            color: #172033;
+        }
+
+        .contacts-state p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 900px) {
+
+            .contact-summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        @media (max-width: 650px) {
+
+            .contacts-page {
+                padding: 15px;
+            }
+
+            .contact-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+
+            .form-actions {
+                grid-column: auto;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .list-header {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .search-contact {
+                width: 100%;
+            }
+
+            .contact-actions {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        🛡️ TripSafety
+    </div>
+
+
+    <nav>
+
+        <a href="dashboard.html">
+            🏠 Dashboard
+        </a>
+
+        <a href="register-trip.html">
+            ➕ Pre-Register Trip
+        </a>
+
+        <a href="tracking.html">
+            📍 Live Tracking
+        </a>
+
+        <a href="trip-history.html">
+            🕘 Trip History
+        </a>
+
+        <a
+            href="emergency-contacts.html"
+            class="active"
+        >
+            👥 Emergency Contacts
+        </a>
+
+        <a href="notifications.html">
+            🔔 Notifications
+        </a>
+
+        <a href="settings.html">
+            ⚙️ Settings
+        </a>
+
+    </nav>
+
+
+    <button
+        id="logoutBtn"
+        class="logout-btn"
+    >
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="main-content">
+
+
+    <div class="contacts-page">
+
+
+        <div class="contacts-container">
+
+
+            <!-- HEADER -->
+
+            <div class="contacts-header">
+
+                <h1>
+                    👥 Emergency Contacts
+                </h1>
+
+                <p>
+                    Add trusted people who can be contacted during an emergency.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================
+                 SUMMARY
+            ================================== -->
+
+            <div class="contact-summary">
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        TOTAL CONTACTS
+                    </div>
+
+                    <div
+                        id="totalContacts"
+                        class="summary-value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        TRUSTED CONTACTS
+                    </div>
+
+                    <div
+                        id="trustedContacts"
+                        class="summary-value"
+                    >
+                        0
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card">
+
+                    <div class="summary-label">
+                        EMERGENCY READY
+                    </div>
+
+                    <div
+                        id="emergencyReady"
+                        class="summary-value"
+                    >
+                        0%
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================
+                 ADD CONTACT
+            ================================== -->
+
+            <section class="contact-card">
+
+
+                <div class="card-heading">
+
+                    <div class="card-heading-icon">
+                        📞
+                    </div>
+
+                    <div>
+
+                        <h2 id="formTitle">
+                            Add Emergency Contact
+                        </h2>
+
+                        <p>
+                            Add someone you trust for emergency alerts.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <form
+                    id="contactForm"
+                    class="contact-form"
+                >
+
+
+                    <input
+                        type="hidden"
+                        id="contactId"
+                    >
+
+
+                    <div class="form-group">
+
+                        <label for="contactName">
+                            Contact Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="contactName"
+                            placeholder="Enter full name"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="contactPhone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="contactPhone"
+                            placeholder="Enter phone number"
+                            maxlength="20"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="contactRelationship">
+                            Relationship
+                        </label>
+
+                        <input
+                            type="text"
+                            id="contactRelationship"
+                            placeholder="Father, Mother, Friend..."
+                            maxlength="50"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            id="submitContactBtn"
+                            class="contact-submit"
+                        >
+                            ➕ Add Contact
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="cancelEditBtn"
+                            class="cancel-edit"
+                        >
+                            Cancel Edit
+                        </button>
+
+                    </div>
+
+
+                </form>
+
+
+                <div
+                    id="contactMessage"
+                    class="contact-message"
+                ></div>
+
+
+            </section>
+
+
+
+            <!-- =================================
+                 CONTACT LIST
+            ================================== -->
+
+            <section class="contacts-list-card">
+
+
+                <div class="list-header">
+
+
+                    <div class="list-title">
+
+                        <h2>
+                            My Emergency Contacts
+                        </h2>
+
+                        <span id="contactCount">
+                            0
+                        </span>
+
+                    </div>
+
+
+                    <div class="search-contact">
+
+                        <input
+                            type="text"
+                            id="contactSearch"
+                            placeholder="🔍 Search contacts..."
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div
+                    id="contactsList"
+                    class="contacts-grid"
+                >
+
+                    <div
+                        class="contacts-state"
+                        style="grid-column:1/-1;"
+                    >
+
+                        <div class="state-icon">
+                            🔄
+                        </div>
+
+                        <h3>
+                            Loading contacts...
+                        </h3>
+
+                        <p>
+                            Please wait.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+    </div>
+
+
+</main>
+
+
+
+<script src="js/emergency-contacts.js"></script>
+
+
+</body>
+
+</html>

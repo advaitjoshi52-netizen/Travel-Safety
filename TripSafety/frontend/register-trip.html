@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Pre-Register Trip - TripSafety</title>
+
+    <link
+        rel="stylesheet"
+        href="css/global.css"
+    >
+
+    <style>
+
+        /* ========================================
+           PAGE
+        ======================================== */
+
+        .trip-page {
+            padding: 28px;
+            min-height: 100vh;
+        }
+
+
+        .trip-container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+
+        /* ========================================
+           HEADER
+        ======================================== */
+
+        .trip-page-header {
+            margin-bottom: 25px;
+        }
+
+
+        .trip-page-header h1 {
+            margin: 0;
+            font-size: 30px;
+            color: #111827;
+        }
+
+
+        .trip-page-header p {
+            margin: 6px 0 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+
+        /* ========================================
+           MAIN CARD
+        ======================================== */
+
+        .trip-form-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow:
+                0 8px 30px rgba(15, 23, 42, 0.08);
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        .form-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+
+        .form-title h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #111827;
+        }
+
+
+        .form-subtitle {
+            margin: 0 0 22px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+
+        .form-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin-bottom: 25px;
+        }
+
+
+        /* ========================================
+           FORM GRID
+        ======================================== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 7px;
+        }
+
+
+        .required {
+            color: #ef4444;
+        }
+
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 12px 13px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+
+            background: #ffffff;
+            color: #111827;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s,
+                box-shadow 0.2s;
+
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            border-color: #2563eb;
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.10);
+
+        }
+
+
+        .form-group textarea {
+            min-height: 105px;
+            resize: vertical;
+        }
+
+
+        .field-help {
+            margin-top: 5px;
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+
+        /* ========================================
+           INFO BOX
+        ======================================== */
+
+        .security-box {
+
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+
+            margin-top: 24px;
+
+            padding: 15px;
+
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            border-radius: 10px;
+
+        }
+
+
+        .security-icon {
+            font-size: 20px;
+        }
+
+
+        .security-box strong {
+            display: block;
+            color: #1e3a8a;
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+
+        .security-box span {
+            color: #3b82f6;
+            font-size: 11px;
+        }
+
+
+        /* ========================================
+           MESSAGE
+        ======================================== */
+
+        #tripMessage {
+
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 12px 14px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        /* ========================================
+           BUTTONS
+        ======================================== */
+
+        .form-actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #e5e7eb;
+
+        }
+
+
+        .btn {
+
+            border: none;
+
+            border-radius: 9px;
+
+            padding: 12px 20px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+
+        .btn-cancel {
+
+            background: #f3f4f6;
+            color: #374151;
+
+        }
+
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+        }
+
+
+        .btn-primary {
+
+            background: #2563eb;
+            color: white;
+
+            min-width: 155px;
+
+        }
+
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+
+        /* ========================================
+           SIDEBAR
+        ======================================== */
+
+        .logout-btn {
+            margin-top: auto;
+            width: calc(100% - 20px);
+            margin-left: 10px;
+            margin-right: 10px;
+
+            padding: 11px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #fee2e2;
+            color: #dc2626;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        .logout-btn:hover {
+            background: #fecaca;
+        }
+
+
+        /* ========================================
+           DARK MODE
+        ======================================== */
+
+        body.dark-mode {
+            background: #111827;
+            color: #f9fafb;
+        }
+
+
+        body.dark-mode .trip-page-header h1 {
+            color: #f9fafb;
+        }
+
+
+        body.dark-mode .trip-page-header p {
+            color: #9ca3af;
+        }
+
+
+        body.dark-mode .trip-form-card {
+            background: #1f2937;
+            border-color: #374151;
+        }
+
+
+        body.dark-mode .form-title h2,
+        body.dark-mode .form-group label {
+            color: #f9fafb;
+        }
+
+
+        body.dark-mode .form-subtitle,
+        body.dark-mode .field-help {
+            color: #9ca3af;
+        }
+
+
+        body.dark-mode .form-divider,
+        body.dark-mode .form-actions {
+            border-color: #374151;
+        }
+
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group select,
+        body.dark-mode .form-group textarea {
+
+            background: #111827;
+            color: #f9fafb;
+            border-color: #4b5563;
+
+        }
+
+
+        body.dark-mode .security-box {
+            background: #172554;
+            border-color: #1e40af;
+        }
+
+
+        body.dark-mode .security-box strong {
+            color: #bfdbfe;
+        }
+
+
+        body.dark-mode .security-box span {
+            color: #93c5fd;
+        }
+
+
+        body.dark-mode .btn-cancel {
+            background: #374151;
+            color: #f9fafb;
+        }
+
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+
+        @media (max-width: 800px) {
+
+            .trip-page {
+                padding: 18px;
+            }
+
+
+            .trip-form-card {
+                padding: 20px;
+            }
+
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .trip-page-header h1 {
+                font-size: 25px;
+            }
+
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+
+            .btn {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- ========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            🛡️ <span>TripSafety</span>
+        </div>
+
+
+        <nav>
+
+            <a href="dashboard.html">
+                🏠 <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="register-trip.html"
+                class="active"
+            >
+                ➕ <span>Pre-Register Trip</span>
+            </a>
+
+
+            <a href="tracking.html">
+                📍 <span>Live Tracking</span>
+            </a>
+
+
+            <a href="trip-history.html">
+                🕘 <span>Trip History</span>
+            </a>
+
+
+            <a href="emergency-contacts.html">
+                👥 <span>Emergency Contacts</span>
+            </a>
+
+
+            <a href="notifications.html">
+                🔔 <span>Notifications</span>
+            </a>
+
+
+            <a href="settings.html">
+                ⚙️ <span>Settings</span>
+            </a>
+
+        </nav>
+
+
+        <button
+            id="logoutBtn"
+            class="logout-btn"
+        >
+            🚪 Logout
+        </button>
+
+    </aside>
+
+
+
+    <!-- ========================================
+         MAIN
+    ========================================= -->
+
+    <main class="main-content">
+
+        <div class="trip-page">
+
+            <div class="trip-container">
+
+
+                <!-- HEADER -->
+
+                <div class="trip-page-header">
+
+                    <h1>
+                        Pre-Register Trip
+                    </h1>
+
+                    <p>
+                        Register your journey before you start travelling.
+                    </p>
+
+                </div>
+
+
+
+                <!-- FORM CARD -->
+
+                <div class="trip-form-card">
+
+
+                    <div class="form-title">
+
+                        <span>
+                            🧳
+                        </span>
+
+                        <h2>
+                            Trip Details
+                        </h2>
+
+                    </div>
+
+
+                    <p class="form-subtitle">
+                        Add your journey information for safety monitoring.
+                    </p>
+
+
+                    <div class="form-divider"></div>
+
+
+
+                    <!-- FORM -->
+
+                    <form id="tripForm">
+
+                        <div class="form-grid">
+
+
+                            <!-- TRIP NAME -->
+
+                            <div class="form-group full">
+
+                                <label for="trip_name">
+
+                                    Trip Name
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="trip_name"
+                                    name="trip_name"
+                                    placeholder="Example: College Trip"
+                                    maxlength="100"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- TRANSPORT -->
+
+                            <div class="form-group">
+
+                                <label for="transport">
+                                    Mode of Transport
+                                </label>
+
+                                <select
+                                    id="transport"
+                                    name="transport"
+                                >
+
+                                    <option value="">
+                                        Select transport
+                                    </option>
+
+                                    <option value="Bus">
+                                        🚌 Bus
+                                    </option>
+
+                                    <option value="Train">
+                                        🚆 Train
+                                    </option>
+
+                                    <option value="Car">
+                                        🚗 Car
+                                    </option>
+
+                                    <option value="Bike">
+                                        🏍️ Bike
+                                    </option>
+
+                                    <option value="Taxi">
+                                        🚕 Taxi
+                                    </option>
+
+                                    <option value="Flight">
+                                        ✈️ Flight
+                                    </option>
+
+                                    <option value="Other">
+                                        🚶 Other
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <!-- SOURCE -->
+
+                            <div class="form-group">
+
+                                <label for="source_location">
+
+                                    Starting Location
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="source_location"
+                                    name="source_location"
+                                    placeholder="Example: Sanjivani University"
+                                    maxlength="150"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- DESTINATION -->
+
+                            <div class="form-group">
+
+                                <label for="destination">
+
+                                    Destination
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="destination"
+                                    name="destination"
+                                    placeholder="Example: Shrirampur"
+                                    maxlength="150"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- DATE -->
+
+                            <div class="form-group">
+
+                                <label for="trip_date">
+
+                                    Trip Date
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="trip_date"
+                                    name="trip_date"
+                                    required
+                                >
+
+                                <span class="field-help">
+                                    Select the date of your journey.
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- START TIME -->
+
+                            <div class="form-group">
+
+                                <label for="start_time">
+
+                                    Start Time
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <input
+                                    type="time"
+                                    id="start_time"
+                                    name="start_time"
+                                    required
+                                >
+
+                            </div>
+
+
+
+                            <!-- ARRIVAL TIME -->
+
+                            <div class="form-group">
+
+                                <label for="expected_arrival">
+
+                                    Expected Arrival Time
+                                </label>
+
+                                <input
+                                    type="time"
+                                    id="expected_arrival"
+                                    name="expected_arrival"
+                                >
+
+                                <span class="field-help">
+                                    Optional — helps calculate your expected journey.
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- NOTES -->
+
+                            <div class="form-group full">
+
+                                <label for="notes">
+                                    Additional Notes
+                                </label>
+
+                                <textarea
+                                    id="notes"
+                                    name="notes"
+                                    maxlength="500"
+                                    placeholder="Add any additional information about your trip..."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SECURITY -->
+
+                        <div class="security-box">
+
+                            <div class="security-icon">
+                                🔐
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Your information is protected
+                                </strong>
+
+                                <span>
+                                    Your trip information is stored securely and is only used to provide safety monitoring.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- MESSAGE -->
+
+                        <div id="tripMessage"></div>
+
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                id="cancelBtn"
+                                class="btn btn-cancel"
+                            >
+                                Cancel
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                id="submitTripBtn"
+                                class="btn btn-primary"
+                            >
+                                🛡️ Create Safety Trip
+                            </button>
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script src="js/register-trip.js"></script>
+
+
+</body>
+
+</html>
